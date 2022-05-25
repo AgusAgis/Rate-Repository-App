@@ -1,16 +1,26 @@
-import { StyleSheet, View} from 'react-native'
+import { Image, StyleSheet, View} from 'react-native'
 import StyledText from './StyledText'
+import RepositoryStats from './RepositoryStats'
+import theme from '../Theme'
+
+const RepositoryHeader =({ownerAvatarUrl, fullName, description, language}) =>(
+                <View style ={{flexDirection: 'row', paddingBottom: 2}}>
+                    <View style={{paddingRight:10}}>
+                    <Image style={styles.image} source={{uri:ownerAvatarUrl}} />
+                    </View>
+               
+                <View style = {{flex:1}}>
+                <StyledText  fontWeight='bold'> {fullName}</StyledText>
+                <StyledText color='secondary'> {description}</StyledText>
+                <StyledText style={styles.language}> {language}</StyledText>
+                </View>
+                </View>
+)
+
 const RepositoryItem=(props)=>(  
-              
               <View key={props.id} style={styles.containter}>
-                <StyledText big bold>Id:{props.id}</StyledText>
-                <StyledText blue>FullName: {props.fullName}</StyledText>
-                <StyledText bold>Description: {props.description}</StyledText>
-                <StyledText blue>Language : {props.language}</StyledText>
-                <StyledText  small>Stars:{props.stargazersCount}</StyledText>
-                <StyledText small>Forks:{props.forksCount}</StyledText>
-                <StyledText small>Review:{props.reviewCount}</StyledText> 
-                <StyledText small>Rating:{props.ratingAverage}</StyledText>
+                <RepositoryHeader {...props} />
+                <RepositoryStats {...props} />
                </View>
 )
 const styles = StyleSheet.create({
@@ -19,6 +29,22 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingTop: 5
     },
+    language:{
+        padding:4,
+        color:theme.colors.white,
+        backgroundColor: theme.colors.primary,
+        alignSelf: "flex-start",
+        marginTop: 4,
+        marginBottom:4,
+        borderRadius: 4,
+        overflow:'hidden'
+    },
+    image:{
+        width:48,
+        height:48,
+        borderRadius: 4,
+        overflow:'hidden'
+    }
     
 })
 
